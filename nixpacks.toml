@@ -32,6 +32,7 @@ supervisord -c /etc/supervisord.conf
 # Run Laravel Artisan commands:
 
 php artisan migrate --force
+php artisan cache:clear
 php artisan optimize:clear
 '''
 
