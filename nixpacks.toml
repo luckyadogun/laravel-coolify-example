@@ -15,7 +15,6 @@ cmds = [
 cmds = [
     "php /app/artisan optimize:clear",
     "php /app/artisan migrate --force",
-    "supervisord -c /etc/supervisord.conf",
 ]
 dependsOn = ["build"]
 
