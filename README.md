@@ -2,11 +2,13 @@
 
 The magic comes from the `nixpacks.toml` file, which was based on the one provided by [@marcfowler](https://github.com/marcfowler) at https://github.com/coollabsio/coolify/discussions/2156.
 
-I;ve also added opcache, but to be honest am unsure if it's working (or needed here).
+Note: If you do not need horizon, then you may be able to further simplify this by using `nixpacks.no-horizon.toml` (renaming to `nixpacks.toml`) instead.
+
+I've also added opcache, but to be honest am unsure if it's working (or needed here).
 
 ## Steps
 
-The postbuild step handles the cache clear and the artisan migrate, but to get supervisor to work, you can either override the default `[start]` `cmd` with the one provided by Nixpacks and add the command to start supervisor:
+The postbuild step handles the cache clear and the artisan migrate, but to get supervisor to work, you can either override the default `[start]`'s `cmd` with the one provided by Nixpacks and add the command to start supervisor:
 ```
 [start]
 cmd = 'node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && (supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)'
