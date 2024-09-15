@@ -22,6 +22,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/horizon-test', function () {
+        // Dispatch a test job to see if it shows in horizon:
+        dispatch(function () {
+            echo 'Horizon test dispatched';
+        });
+    });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
