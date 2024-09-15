@@ -11,11 +11,12 @@ cmds = [
     "/assets/extra.sh",
 ]
 
+[phases.postbuild]
+cmds = ["/app/php artisan cache:clear"]
+dependsOn = ["build"]
+
 [start]
-cmd = '''
-node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && \\
-     (php artisan cache:clear && supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)
-'''
+cmd = 'node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && (supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)'
 
 [staticAssets]
 "extra.sh" = '''
