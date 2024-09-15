@@ -12,7 +12,7 @@ cmds = [
 ]
 
 [phases.postbuild]
-cmds = ["/app/php artisan cache:clear"]
+cmds = ["php /app/artisan cache:clear"]
 dependsOn = ["build"]
 
 [start]
