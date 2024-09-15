@@ -13,7 +13,7 @@ cmds = [
 
 [start]
 cmd = '''
-node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && \
+node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && \\
      (php artisan cache:clear && supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)
 '''
 
