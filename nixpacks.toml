@@ -12,11 +12,12 @@ cmds = [
 ]
 
 [phases.postbuild]
-cmds = ["php /app/artisan cache:clear"]
+cmds = [
+    "php /app/artisan optimize:clear",
+    "php /app/artisan migrate --force",
+    "supervisord -c /etc/supervisord.conf",
+]
 dependsOn = ["build"]
-
-[start]
-cmd = 'node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && (supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)'
 
 [staticAssets]
 "extra.sh" = '''
@@ -31,14 +32,6 @@ echo opcache.interned_strings_buffer=64 >> "$PHP_INI_PATH"
 echo opcache.max_accelerated_files=32531 >> "$PHP_INI_PATH"
 echo opcache.validate_timestamps=0 >> "$PHP_INI_PATH"
 echo opcache.enable_cli=1 >> "$PHP_INI_PATH"
-
-# Start supervisor
-supervisord -c /etc/supervisord.conf
-
-# Run Laravel Artisan commands:
-
-php artisan migrate --force
-php artisan optimize:clear
 '''
 
 "supervisord.conf" = '''
