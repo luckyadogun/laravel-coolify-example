@@ -33,7 +33,6 @@ supervisord -c /etc/supervisord.conf -n
 
 php artisan migrate --force
 php artisan optimize:clear
-php artisan horizon:terminate
 '''
 
 "supervisord.conf" = '''
