@@ -8,7 +8,13 @@ I've also added opcache, but to be honest am unsure if it's working (or needed h
 
 ## Steps
 
-The postbuild step handles the cache clear and the artisan migrate, but to get supervisor to work, you can either override the default `[start]`'s `cmd` with the one provided by Nixpacks and add the command to start supervisor:
+### Step 1
+
+Include the `nixpacks.toml` (or `nixpacks.no-horizon.toml` renamed to `nixpacks.toml`) in your root directory, then one of the following:
+
+### Step 2
+
+The `nixpacks` has a `[postbuild]` step to handle the cache:clear and the artisan:migrate commands, but to get supervisor to run (so we get horizon), you can either override the default `[start]`'s `cmd` with the one provided by Nixpacks and add the command to start supervisor:
 ```
 [start]
 cmd = 'node /assets/scripts/prestart.mjs /assets/nginx.template.conf /nginx.conf && (supervisord -c /etc/supervisord.conf & php-fpm -y /assets/php-fpm.conf & nginx -c /nginx.conf)'
